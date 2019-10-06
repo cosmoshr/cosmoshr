@@ -1,0 +1,25 @@
+{
+  "name": "cosmoshr",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": "https://github.com/cosmoshr/cosmoshr.git",
+  "author": "CraftyDH <23249291+CraftyDH@users.noreply.github.com>",
+  "scripts": {
+    "serve": "parcel index.html -p 8080",
+    "build": "parcel build index.html",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "parcel-bundler": "^1.12.3",
+    "sass": "^1.23.0"
+  },
+  "dependencies": {
+    "nanobus": "^4.4.0",
+    "pixi.js": "^5.1.5"
+  }
+}

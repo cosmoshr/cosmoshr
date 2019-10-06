@@ -1,0 +1,18 @@
+<span id="splash_back" onclick="bus.emit('splash_click', 'back')"></span>
+<div id="splash">
+  <div class="fadein page" id="splash_home">
+    <h1>CosmosHR</h1>
+    <rounded-button onclick="bus.emit('splash_click', 'change_screen', 'play', 'home')">Play</rounded-button>
+    <rounded-button onclick="bus.emit('splash_click', 'change_screen', 'settings', 'home')">Settings</rounded-button>
+    <rounded-button onclick="bus.emit('quit')">Quit</rounded-button>
+  </div>
+
+  <div class="page" id="splash_play">
+      <h1>Play</h1>
+      <rounded-button onclick="bus.emit('start-game')">Start</rounded-button>
+  </div>
+    
+  <div class="page" id="splash_settings">
+      <h1>Settings</h1>
+  </div>
+</div>

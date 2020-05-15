@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/utils/Camera.gd" type="Script" id=1]
+[ext_resource path="res://src/planets/Rocky1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/planets/Gas1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/planets/Moon2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/planets/Habitable3.tscn" type="PackedScene" id=5]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 1 )
+
+[node name="planet" parent="." instance=ExtResource( 5 )]
+position = Vector2( 358, -261 )
+
+[node name="planet2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -382, 207 )
+
+[node name="planet3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 386, 517 )
+
+[node name="planet4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1108, 427 )
+
+[node name="planet5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 800, 1149 )

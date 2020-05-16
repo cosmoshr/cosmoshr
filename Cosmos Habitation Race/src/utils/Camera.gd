@@ -1,8 +1,8 @@
 extends Camera2D
 
 # Max and min zoom levels for godot
-const MAX_ZOOM_LEVEL: = 0.5
-const MIN_ZOOM_LEVEL: = 8.0
+export var MIN_ZOOM_LEVEL: = 0.5
+export var MAX_ZOOM_LEVEL: = 8.0
 
 # Zoom increments for godot
 const ZOOM_INCREMENT: = 0.2
@@ -32,10 +32,10 @@ func _update_zoom(incr: float, zoom_anchor: Vector2):
 	var old_zoom = _current_zoom_level
 	_current_zoom_level += incr
 	
-	if _current_zoom_level < MAX_ZOOM_LEVEL:
-		_current_zoom_level = MAX_ZOOM_LEVEL
-	elif _current_zoom_level > MIN_ZOOM_LEVEL:
+	if _current_zoom_level < MIN_ZOOM_LEVEL:
 		_current_zoom_level = MIN_ZOOM_LEVEL
+	elif _current_zoom_level > MAX_ZOOM_LEVEL:
+		_current_zoom_level = MAX_ZOOM_LEVEL
 	
 	if old_zoom == _current_zoom_level:
 		return

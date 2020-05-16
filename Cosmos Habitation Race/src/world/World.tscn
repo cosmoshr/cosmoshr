@@ -1,3 +1,10 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/utils/Camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/world/World.gd" type="Script" id=2]
 
 [node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 1 )]
+MAX_ZOOM_LEVEL = 100.0

@@ -1,23 +1,18 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
 export var MAX_SIZE = 6000
 export var MIN_SIZE = 2000
 
 var HEIGHT: int = 50000
 var rand_gen: = RandomNumberGenerator.new()
 
+var planet_names
+
 var current_seed
 
-var _final_circles = []
-
-var _solar_system = []
-var _solar_system_mutex
-
+var _final_circles: = []
+var _solar_system: = []
 var _current_circle = 0
-var _current_circle_mutex
 
 func _generate_circles():
 	var circles = []
@@ -58,21 +53,31 @@ func _generate_circles():
 	
 	return final
 
-func _solar_system_thread():
-	_current_circle_mutex.lock()
-	var circle = {
-		'pos': _final_circles[_current_circle].pos,
-		'radius': _final_circles[_current_circle].radius,
-		'id': _current_circle
-	}
-	_current_circle += 1
-	_current_circle_mutex.unlock()
+func _planets(radius):
+	var planets = []
+	var num_planets = rand_gen.randi_range(0, (radius - 300) / 110)
 	
-	circle.sunSize = rand_gen.randi_range(80, 280)
-	circle.planets = {}
+	for planet_num in range(1, num_planets):
+		var planet = {
+			'name': planet_names[rand_gen.randi()%planet_names.size()],
+			'distance_from_sun': 300 + 110 * planet_num
+		}
+		
+		planet.width = rand_gen.randi_range(40, 100)
 	
-	
-	
+	return planets
+
+func _solar_system_gen():
+	while _current_circle < _final_circles.size():
+		var circle = {
+			'pos': _final_circles[_current_circle].pos,
+			'radius': _final_circles[_current_circle].radius,
+			'id': _current_circle
+		}
+		_current_circle += 1
+		
+		circle.sunSize = rand_gen.randi_range(80, 280)
+		circle.planets = _planets(circle.radius)
 
 func _draw() -> void:
 	for circle in _final_circles:
@@ -82,20 +87,8 @@ func _draw() -> void:
 
 func generate():
 	_final_circles = _generate_circles()
-	print(OS.get_processor_count())
 	
-	_solar_system_mutex = Mutex.new()
-	_current_circle_mutex = Mutex.new()
-	
-	
-	
-	var index = 0
-	for circle in _final_circles:
-		var solar_system = {
-			'pos': circle.pos,
-			'id': index,
-			'radius': circle.radius
-		}
+	_solar_system_gen()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -107,6 +100,16 @@ func _init(height = HEIGHT, max_size = MAX_SIZE, min_size = MIN_SIZE) -> void:
 	HEIGHT = height
 	MAX_SIZE = max_size
 	MIN_SIZE = min_size
+	
+	var file = File.new()
+	file.open('res://assets/planets/names.json', File.READ)
+	
+	var text = file.get_as_text()
+	planet_names = parse_json(text)
+	file.close()
+	
+	planet_names.shuffle()
+	print(planet_names[1])
 
 func set_seed(gen_seed: int) -> void:
 	current_seed = gen_seed
